@@ -1,0 +1,168 @@
+﻿Version=4
+IconFile=
+NumberOfModules=13
+Module1=splash
+Module2=mainpage
+Module3=settings
+Module4=icon
+Module5=gallery
+Module6=cameras
+Module7=help
+Module8=handleCall
+Module9=widget
+Module10=cycle
+Module11=myLibrary
+Module12=handleSMS
+Module13=CameraExClass
+Build1=Default,quicklearn.collection.app
+DoNotOverwriteManifest=False
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetActivityAttribute(cameras, android:theme, @android:style/Theme.Translucent.NoTitleBar)~\n~~\n~AddPermission(android.permission.READ_PHONE_STATE)~\n~AddPermission(android.permission.PROCESS_OUTGOING_CALLS)~\n~~\n~SetActivityAttribute(Main, "android:excludeFromRecents", "true")~\n~SetActivityAttribute(mainpage, "android:excludeFromRecents", "true")~\n~SetActivityAttribute(settings, "android:excludeFromRecents", "true")~\n~SetActivityAttribute(icon, "android:excludeFromRecents", "true")~\n~SetActivityAttribute(gallery, "android:excludeFromRecents", "true")~\n~SetActivityAttribute(cameras, "android:excludeFromRecents", "true")~\n~~\n~AddPermission(android.permission.CALL_PHONE)~\n~~\n~AddReceiverText(handleCall, <intent-filter>~\n~            <action android:name="android.intent.action.NEW_OUTGOING_CALL" /> ~\n~            <category android:name="android.intent.category.DEFAULT" /> ~\n~        </intent-filter>)~\n~		~\n~AddPermission(android.permission.RECEIVE_SMS)~\n~AddReceiverText(handleSMS,~\n~<intent-filter>~\n~    <action android:name="android.provider.Telephony.SMS_RECEIVED" />~\n~</intent-filter>)~\n~'End of default text.~\n~
+NumberOfFiles=31
+File1=1.png
+File2=10.png
+File3=11.jpg
+File4=11.png
+File5=12.png
+File6=13.png
+File7=14.png
+File8=15.png
+File9=16.png
+File10=17.png
+File11=18.png
+File12=19.png
+File13=2.png
+File14=20.png
+File15=3.png
+File16=4.png
+File17=5.png
+File18=6.png
+File19=7.png
+File20=8.png
+File21=9.png
+File22=BYekan.ttf
+File23=frmgallery.bal
+File24=frmhelp.bal
+File25=frmicon.bal
+File26=frmpass.bal
+File27=icomoon.ttf
+File28=mainpage.bal
+File29=settings.bal
+File30=splash.bal
+File31=widget.bal
+NumberOfLibraries=18
+Library1=core
+Library2=animation
+Library3=phone
+Library4=preferenceactivity
+Library5=reflection
+Library6=oslibrary
+Library7=persiandate
+Library8=animationplus
+Library9=camera
+Library10=broadcastreceiver
+Library11=phonestatelistener
+Library12=ime
+Library13=javaobject
+Library14=rspopupmenu
+Library15=rippleeffect
+Library16=stringutils
+Library17=threading
+Library18=audio
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: فضول یاب
+	#VersionCode: 1
+	#VersionName: 1.0.0
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: True
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+
+End Sub
+
+Sub Globals
+Private pnloverlay As Panel
+Private txtval As EditText
+Private btnlogin As Button
+Private btndelete As Button
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+Activity.LoadLayout("frmpass")
+txtval.Typeface = Typeface.LoadFromAssets("BYekan.ttf")
+btnlogin.Typeface = Typeface.LoadFromAssets("BYekan.ttf")
+btndelete.Typeface = Typeface.LoadFromAssets("BYekan.ttf")
+txtval.Color = Colors.Transparent
+
+If myLibrary.getSettingBoolean("first") = False Then
+ ToastMessageShow("رمز عبور پیش فرض 00 میباشد",False)
+ myLibrary.setBoolean("first",True)
+End If
+
+StartService(handleCall)
+StartService(handleSMS)
+
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+If UserClosed = False Then
+ Activity.Finish
+End If
+End Sub
+
+Sub btnlogin_Click
+Dim pn As String
+pn = myLibrary.getSetting("pn")
+
+If pn.Length = 0 Then
+ pn = "00"
+End If
+
+If pn <> txtval.Text Then
+ ToastMessageShow("رمز عبور اشتباه هست",False)
+ Return
+End If
+
+Activity.Finish
+StartActivity(splash)
+myLibrary.SetAnimation("file2","file1")
+End Sub
+
+
+Sub Activity_KeyPress (KeyCode As Int) As Boolean 'Return True to consume the event
+ 
+ If KeyCode = KeyCodes.KEYCODE_BACK Then
+  If Msgbox2("آيا مايل به خروج هستيد؟","خروج","آري","خير","",Null) = DialogResponse.POSITIVE Then
+   Activity.Finish
+  End If
+  Return True
+ Else If KeyCode = KeyCodes.KEYCODE_HOME Then
+  Return True
+ End If
+ 
+End Sub
+
+Sub numbers_Click
+Dim img1 As ImageView
+img1 = Sender
+txtval.Text = txtval.Text & img1.Tag
+myLibrary.AnimationView(img1,False,700)
+End Sub
+
+Sub btndelete_Click
+Try
+ txtval.Text = txtval.Text.SubString2(0,txtval.Text.Length - 1)
+Catch
+End Try
+End Sub

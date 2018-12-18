@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent" android:layout_height="fill_parent">
+  <AbsoluteLayout android:id="@+id/widget_panel1" android:layout_width="70dp" android:layout_height="70dp" android:layout_x="0dp" android:layout_y="0dp" android:visibility="visible">
+    <ImageView android:src="@drawable/icon" android:scaleType="fitXY" android:id="@+id/widget_img1" android:layout_width="70dp" android:layout_height="70dp" android:layout_x="0dp" android:layout_y="0dp" android:visibility="visible" />
+  </AbsoluteLayout>
+</AbsoluteLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="quicklearn.collection.app"
+	android:versionCode="1"
+	android:versionName="1.0.0"
+	android:installLocation="internalOnly">
+	
+	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>
+	<supports-screens android:largeScreens="true" 
+	    android:normalScreens="true" 
+	    android:smallScreens="true" 
+	    android:anyDensity="true"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.REBOOT"/>
+	<uses-permission android:name="android.permission.DUMP"/>
+	<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+	<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+	<uses-permission android:name="android.permission.GET_TASKS"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	<uses-permission android:name="android.permission.CAMERA"/>
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+	<uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+	<uses-permission android:name="android.permission.CALL_PHONE"/>
+	<application
+		android:icon="@drawable/icon"
+		android:label="فضول یاب">
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".main"
+			android:label="فضول یاب"
+			android:screenOrientation="portrait">
+			<intent-filter>
+			   <category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".mainpage"
+			android:label="فضول یاب"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".settings"
+			android:label="فضول یاب"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".icon"
+			android:label="فضول یاب"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".gallery"
+			android:label="فضول یاب"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".cameras"
+			android:label="فضول یاب"
+			android:screenOrientation="portrait"
+			android:theme="@android:style/Theme.Translucent.NoTitleBar">
+		</activity>
+		<service android:name=".handlecall">
+		</service>
+		<receiver android:name=".handlecall$handlecall_BR">
+			<intent-filter>
+			<action android:name="android.intent.action.BOOT_COMPLETED"/>
+			</intent-filter>
+			<intent-filter>
+			            <action android:name="android.intent.action.NEW_OUTGOING_CALL" /> 
+			            <category android:name="android.intent.category.DEFAULT" /> 
+			        </intent-filter>
+		</receiver>
+		<service android:name=".widget">
+		</service>
+		<receiver
+			android:name=".widget$widget_BR"
+			android:label="">
+			<intent-filter>
+			<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data android:name="android.appwidget.provider"
+			android:resource="@xml/widget_info" />
+			<intent-filter>
+			<action android:name="android.intent.action.BOOT_COMPLETED"/>
+			</intent-filter>
+		</receiver>
+		<service android:name=".cycle">
+		</service>
+		<receiver android:name=".cycle$cycle_BR">
+		</receiver>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".help"
+			android:label="فضول یاب"
+			android:screenOrientation="portrait">
+		</activity>
+	</application>
+</manifest>
